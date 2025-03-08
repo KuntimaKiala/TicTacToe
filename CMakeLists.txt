@@ -11,7 +11,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE "Release")
 
 
-set(BASE_TARGET_NAME Base)
-set(APP_TARGET_NAME App)
+set(ENGINE_TARGET_NAME Engine)
+set(GAME_TARGET_NAME Game)
+
+add_subdirectory(Engine)
+add_subdirectory(Game)
 
 
