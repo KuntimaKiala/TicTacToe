@@ -3,8 +3,12 @@
 
 int main()
 {
-    FromHeLL::Engine* pApp = GetApplication( 500, 500, "TIC TAC TOE" );
+    FromHeLL::Engine* pEngine = GetApplication( 500, 500, "TIC TAC TOE" );
     
-    pApp->Run();
+    if( pEngine->Init() )
+    {
+        pEngine->Run();
+    }
+    
     return 0;
 }
