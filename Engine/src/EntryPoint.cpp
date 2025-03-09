@@ -9,6 +9,6 @@ int main()
     {
         pEngine->Run();
     }
-    
+    delete pEngine;
     return 0;
 }

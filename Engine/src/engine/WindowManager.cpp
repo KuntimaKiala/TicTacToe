@@ -25,7 +25,7 @@ namespace FromHeLL
             glfwTerminate();
             return false;
         }
-        LOG("Window Creation");
+        LOG("Window Creation Succeded");
         glfwMakeContextCurrent(m_pWindow);
         ResizeWindow();
 
@@ -49,7 +49,7 @@ namespace FromHeLL
         glfwInitHint( GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwInitHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         
-        
+        LOG("OpenGL FrameWork Succeded");
     }
 
     bool WindowManager::IsGladSucceded() 

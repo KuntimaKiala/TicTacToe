@@ -16,10 +16,16 @@ namespace FromHeLL
     
     void GameApplication:: Run()
     {
-        std::cout << "RUNNING" <<std::endl;
+        std::cout << "Game Running" <<std::endl;
         while (!glfwWindowShouldClose( GetWindowManager()->GetWindow() ))
         {
-            
+            /*
+                glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+                glClear(GL_COLOR_BUFFER_BIT);
+                glfwSwapBuffers(GetWindowManager()->GetWindow());
+                glfwPollEvents();
+            */
+
         }
         
     }

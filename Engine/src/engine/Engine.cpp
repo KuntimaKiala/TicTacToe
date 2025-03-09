@@ -18,7 +18,7 @@ namespace FromHeLL
         m_pWindowManager->Init();
         if (m_pWindowManager->IsWindowCreated())
         {
-            LOG("Engine Init");
+            LOG("Engine Initialization Succeded");
             return true;
         }
         LOG("Engine Failed To Init");
