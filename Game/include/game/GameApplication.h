@@ -3,6 +3,9 @@
 #include <engine/Engine.h>
 #include <iostream>
 #include <engine/WindowManager.h>
+#include <engine/Renderer.h>
+#include "Config.h"
+
 namespace FromHeLL
 {
     

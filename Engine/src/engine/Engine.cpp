@@ -2,13 +2,14 @@
 #include "engine/WindowManager.h"
 #include "engine/Core.h"
 
+
 namespace FromHeLL
 {
     
     Engine::Engine(int iWidth, int iHeight, const char* pAppName)
     : m_pWindowManager( new WindowManager(iWidth, iHeight, pAppName) )
     {
-       
+      
     }
     
 
@@ -18,6 +19,7 @@ namespace FromHeLL
         m_pWindowManager->Init();
         if (m_pWindowManager->IsWindowCreated())
         {
+            
             LOG("Engine Initialization Succeded");
             return true;
         }

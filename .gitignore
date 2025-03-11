@@ -10,3 +10,4 @@ json
 .vscode
 vscode
 Makefile
+Config.h

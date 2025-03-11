@@ -1,0 +1,7 @@
+#pragma 
+#include <string> 
+
+std::string GetResourceDir()
+{
+    return "@SHADER_FOLDER_PATH@/";
+}
