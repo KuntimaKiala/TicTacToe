@@ -1,5 +1,5 @@
 #include "game/GameApplication.h"
-
+#include <engine/WindowManager.h>
 
 FromHeLL::Engine* GetApplication( int iWidth=500, int iHeight=500, const char* pAppNam="Tic Tac Toe" )
 {
@@ -17,12 +17,14 @@ namespace FromHeLL
     {
         
         Renderer oRenderer( GetResourceDir() );
-        std::cout << std::endl;
-        while (!glfwWindowShouldClose( GetWindowManager()->GetWindow() ))
+       
+        weak<WindowManager> pWindowManager= GetWindowManager();
+        GLFWwindow*  pWindow = pWindowManager.lock()->GetWindow();
+        while (!glfwWindowShouldClose( pWindow ))
         {
             glClearColor(1.f, 1.f, 1.f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
-            glfwSwapBuffers(GetWindowManager()->GetWindow());
+            glfwSwapBuffers( pWindow );
             glfwPollEvents();
             
 

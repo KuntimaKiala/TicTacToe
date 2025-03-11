@@ -31,13 +31,13 @@ namespace FromHeLL
     {
 
     }
-    WindowManager* Engine::GetWindowManager()
+    weak<WindowManager> Engine::GetWindowManager()
     {
         return m_pWindowManager;
     }
     Engine::~Engine()
     {
-        delete m_pWindowManager;
+        
     }
 } // namespace FromHeLL
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "engine/Core.h"
 
 namespace FromHeLL
 {
@@ -7,11 +7,11 @@ namespace FromHeLL
     class Engine
     {
     private:
-    WindowManager*  m_pWindowManager;
+    shared<WindowManager>  m_pWindowManager;
     public:
         Engine(int iWidth, int iHeight, const char* pAppName);
         void Setup();
-        WindowManager* GetWindowManager()  ;
+        weak<WindowManager> GetWindowManager()  ;
         virtual void Run() = 0;
         bool Init() const;
         void Exit() const;
