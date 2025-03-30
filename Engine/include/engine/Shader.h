@@ -13,9 +13,15 @@ namespace FromHeLL
     {
     private:
         GLuint ID;
+        const std::string& sVertexShaderErrorMessage = "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n";
+        const std::string& sFragmentShaderErrorMessage = "ERROR::FRAGMENT::VERTEX::COMPILATION_FAILED\n";
     public:
         Shader() = delete;
         Shader( const String& sDirectoryPath );
+        void CompileShader(   GLuint& shader,
+                              const std::string& sShaderSourceCode, 
+                              const std::string& sErrorMessage = "ERROR::SHADER::UNKNOW::COMPILATION_FAILED\n");
+        void  ShaderProgram(const GLuint& vertexShader, const GLuint& framentShader);
         void Use() const ;
         ~Shader();
     };

@@ -27,14 +27,17 @@ namespace FromHeLL
         return false;
 
     }
+    
     void Engine::Setup()
     {
 
     }
+
     weak<WindowManager> Engine::GetWindowManager()
     {
         return m_pWindowManager;
     }
+
     Engine::~Engine()
     {
         

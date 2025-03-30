@@ -19,13 +19,17 @@ namespace FromHeLL
         Renderer oRenderer( GetResourceDir() );
        
         weak<WindowManager> pWindowManager= GetWindowManager();
-        GLFWwindow*  pWindow = pWindowManager.lock()->GetWindow();
+        GLFWwindow* pWindow = pWindowManager.lock()->GetWindow();
         while (!glfwWindowShouldClose( pWindow ))
         {
-            glClearColor(1.f, 1.f, 1.f, 1.0f);
+            glClearColor(0.f, 0.f, 0.f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
+            
+            oRenderer.RenderBoard();
+
             glfwSwapBuffers( pWindow );
             glfwPollEvents();
+            
             
 
         }

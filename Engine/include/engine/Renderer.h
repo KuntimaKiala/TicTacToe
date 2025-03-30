@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 #include "engine/Shader.h"
-
+#include "Core.h"
 
 namespace Data
 {
@@ -21,7 +21,12 @@ namespace FromHeLL
     {
     private:
     
-    std::unique_ptr<Shader> m_pShader;
+    unique<Shader> m_pShader;
+    GLuint m_uiVBO;
+    GLuint m_uiVAO;
+
+    void setupGrid() ;
+    
     public:
         Renderer() = delete;
         Renderer( const String& sPath );
