@@ -25,6 +25,11 @@ namespace FromHeLL
         glEnableVertexAttribArray(0);
 
     }
+
+    void Renderer::RenderGame(/*const Board& board*/)
+    {
+        RenderBoard();
+    }
     void Renderer::RenderBoard()
     {
         

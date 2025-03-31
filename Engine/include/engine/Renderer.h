@@ -26,11 +26,13 @@ namespace FromHeLL
     GLuint m_uiVAO;
 
     void setupGrid() ;
-    
+    void RenderBoard();
+
     public:
         Renderer() = delete;
         Renderer( const String& sPath );
-        void RenderBoard();
+        
+        void RenderGame(/*const Board& board*/) ;
         void RenderO(float x, float y);
         void RenderX(float x, float y);
         ~Renderer();
