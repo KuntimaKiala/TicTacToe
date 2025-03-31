@@ -22,6 +22,8 @@ namespace FromHeLL
         WindowManager() = delete;
         WindowManager(int iWidth, int iHeight, const char* pAppName);
         inline GLFWwindow* GetWindow() {return m_pWindow;}
+        inline int GetWindowHeight() const {return m_iHeight;}
+        inline int GetWindowWidth()  const {return m_iWidth;}
         bool IsWindowCreated() ;
         
         void Init() ;

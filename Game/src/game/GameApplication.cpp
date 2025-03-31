@@ -18,8 +18,10 @@ namespace FromHeLL
         
         Renderer oRenderer( GetResourceDir() );
        
-        weak<WindowManager> pWindowManager= GetWindowManager();
+        weak<WindowManager> pWindowManager = GetWindowManager();
+        oRenderer.SetWindowSize( pWindowManager.lock()->GetWindowWidth(), pWindowManager.lock()->GetWindowHeight() );
         GLFWwindow* pWindow = pWindowManager.lock()->GetWindow();
+        
         while (!glfwWindowShouldClose( pWindow ))
         {
             glClearColor(0.f, 0.f, 0.f, 1.0f);

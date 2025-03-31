@@ -3,17 +3,6 @@
 #include "engine/Shader.h"
 #include "Core.h"
 
-namespace Data
-{
-    static float Vertices[16] = {
-        // Vertical lines
-        -0.33f,  1.0f,   -0.33f, -1.0f, 
-         0.33f,  1.0f,    0.33f, -1.0f,  
-        // Horizontal lines
-        -1.0f,  0.33f,    1.0f,  0.33f, 
-        -1.0f, -0.33f,    1.0f, -0.33f 
-                      } ;
-} 
 
 namespace FromHeLL
 {
@@ -24,17 +13,20 @@ namespace FromHeLL
     unique<Shader> m_pShader;
     GLuint m_uiVBO;
     GLuint m_uiVAO;
+    int m_iWidth;
+    int m_iHeight;
 
     void setupGrid() ;
     void RenderBoard();
-
+    void RenderO(float x, float y);
+    void RenderX(float x, float y);
+    
     public:
         Renderer() = delete;
         Renderer( const String& sPath );
-        
+        void SetWindowSize( int iWidth, int iHeight ) ;
         void RenderGame(/*const Board& board*/) ;
-        void RenderO(float x, float y);
-        void RenderX(float x, float y);
+        
         ~Renderer();
     };
     
