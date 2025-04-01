@@ -10,7 +10,6 @@ namespace FromHeLL
     , m_iHeight(0)
     {
         //std::unique_ptr<Shader> o =  std::make_unique<Shader>(sPath); only on c14
-
         setupGrid();
 
     }

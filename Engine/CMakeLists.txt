@@ -20,7 +20,8 @@ add_library(${ENGINE_TARGET_NAME} STATIC
             ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/Shader.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/Shader.h
 
-            #${CMAKE_CURRENT_SOURCE_DIR}/src/glad.c
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/engine/Board.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/Board.h
             )
 
 

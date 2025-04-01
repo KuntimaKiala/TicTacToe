@@ -8,7 +8,7 @@
 
 namespace FromHeLL
 {
-    
+    class Board;
     class GameApplication : public Engine
     {
     private:

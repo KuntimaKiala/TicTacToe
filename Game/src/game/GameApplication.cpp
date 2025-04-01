@@ -1,5 +1,6 @@
 #include "game/GameApplication.h"
 #include <engine/WindowManager.h>
+#include <engine/Board.h>
 
 FromHeLL::Engine* GetApplication( int iWidth=500, int iHeight=500, const char* pAppNam="Tic Tac Toe" )
 {
@@ -17,7 +18,8 @@ namespace FromHeLL
     {
         
         Renderer oRenderer( GetResourceDir() );
-       
+        Board oBoard;
+        oBoard.printBoard();
         weak<WindowManager> pWindowManager = GetWindowManager();
         oRenderer.SetWindowSize( pWindowManager.lock()->GetWindowWidth(), pWindowManager.lock()->GetWindowHeight() );
         GLFWwindow* pWindow = pWindowManager.lock()->GetWindow();
