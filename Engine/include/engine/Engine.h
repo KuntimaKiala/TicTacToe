@@ -13,6 +13,7 @@ namespace FromHeLL
         void Setup();
         weak<WindowManager> GetWindowManager()  ;
         virtual void Run() = 0;
+        void InputHandler();
         bool Init() const;
         void Exit() const;
         

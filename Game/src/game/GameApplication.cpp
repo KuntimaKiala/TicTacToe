@@ -19,25 +19,25 @@ namespace FromHeLL
         
         Renderer oRenderer( GetResourceDir() );
         Board oBoard;
-        oBoard.printBoard();
         weak<WindowManager> pWindowManager = GetWindowManager();
         oRenderer.SetWindowSize( pWindowManager.lock()->GetWindowWidth(), pWindowManager.lock()->GetWindowHeight() );
         GLFWwindow* pWindow = pWindowManager.lock()->GetWindow();
-        
+        oRenderer.SetWindow( pWindow );
         while (!glfwWindowShouldClose( pWindow ))
         {
             glClearColor(0.f, 0.f, 0.f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
             
-            //TODO : Input Handler
-            oRenderer.RenderGame();
+            InputHandler();
+            
+            oRenderer.RenderGame( oBoard );
+            
 
             glfwSwapBuffers( pWindow );
             glfwPollEvents();
             
-            
-
         }
+        glfwTerminate();
         
     }
     GameApplication::~GameApplication()

@@ -24,7 +24,7 @@ namespace FromHeLL
 
     bool Board::PlaceMark(int iRow, int iColumn, char cMark /*='-'*/)
     {
-        if (board[iRow][iColumn] != '-')
+        if( board[iRow][iColumn] == '-' )
         {
            board[iRow][iColumn] = cMark;
            return true; 

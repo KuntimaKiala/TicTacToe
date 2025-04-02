@@ -1,7 +1,15 @@
 #include "engine/Renderer.h"
+#include "engine/Board.h"
+
 
 namespace FromHeLL
 {
+
+
+    float Renderer::m_fXCursorPos=0.f;
+    float Renderer::m_fYCursorPos=0.f;
+    bool  Renderer::bIsMouseCliked = false;
+
     Renderer::Renderer(const String& sPath)
     : m_pShader( new Shader( sPath ) )
     , m_uiVBO(0)
@@ -39,10 +47,31 @@ namespace FromHeLL
 
     }
 
-    void Renderer::RenderGame(/*const Board& board*/)
+    void Renderer::RenderGame( Board& board )
     {
+        if ( !GetWindow() )
+        {
+            std::cout << " RENDERER::WINDOW::NULL" <<std::endl;
+            return;
+        }
+        
+        //board.PlaceMark(1,1, 'O');
+        //board.printBoard();
+        SetMouseCallback( GetWindow() );
+        if( !getMouseClickedState() )
+        {
+            setXCursorPos(0.0f);
+            setYCursorPos(0.0f);
+        }
+        else
+        {
+            std::cout << getXCursorPos() << " " << getXCursorPos() << std::endl;
+        }
+        setMouseClickedState( false );
         RenderBoard();
     }
+
+    
     void Renderer::RenderBoard()
     {
         
@@ -68,6 +97,34 @@ namespace FromHeLL
             m_iHeight = iHeight;
         } 
     }
+    void Renderer::SetMouseCallback(GLFWwindow* pWindow) {
+        // Set mouse button callback
+        glfwSetMouseButtonCallback( pWindow, MouseButtonCallback );
+    }
+    
+    void Renderer::MouseButtonCallback(GLFWwindow* pWindow, int button, int action, int mods) 
+    {
+        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+            // Get mouse position when the left mouse button is clicked
+            double xpos, ypos;
+            glfwGetCursorPos(pWindow, &xpos, &ypos);
+            
+            // Call the mouse click handler
+            Renderer* renderer = static_cast<Renderer*>(glfwGetWindowUserPointer(pWindow));
+            renderer->HandleMouseClick(xpos, ypos);
+        }
+        
+    }
+    
+    void Renderer::HandleMouseClick(double xpos, double ypos)
+    {
+        setXCursorPos( xpos );
+        setYCursorPos( ypos );
+        setMouseClickedState( true );
+        
+    }
+
+
     Renderer::~Renderer()
     {
        

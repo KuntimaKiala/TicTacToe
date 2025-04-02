@@ -12,7 +12,7 @@ namespace FromHeLL
         public :
             Board();
             bool PlaceMark(int iRow, int iColumn, char cMark='-');
-            inline char const * const * getBoard() const { return board;};
+            inline  char const* const* getBoard()  { return board;};
             void printBoard();
             ~Board();
 

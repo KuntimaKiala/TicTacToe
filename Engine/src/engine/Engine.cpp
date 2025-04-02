@@ -27,6 +27,16 @@ namespace FromHeLL
         return false;
 
     }
+
+    void Engine::InputHandler()
+    {
+        GLFWwindow* pWindow = m_pWindowManager->GetWindow();
+        if( glfwGetKey( pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS )
+        {
+            glfwSetWindowShouldClose( pWindow,true );
+        }
+        
+    }
     
     void Engine::Setup()
     {
