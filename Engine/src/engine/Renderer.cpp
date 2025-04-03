@@ -18,6 +18,8 @@ namespace FromHeLL
     , m_iHeight(0)
     , m_fxPos(0.0f)
     , m_fyPos(0.0f)
+    , m_iRow(0)
+    , m_iCol(0)
     {
         //std::unique_ptr<Shader> o =  std::make_unique<Shader>(sPath); only on c14
         setupGrid();
@@ -49,7 +51,7 @@ namespace FromHeLL
 
     }
 
-    void Renderer::RenderGame( Board& board )
+    void Renderer::RenderGame( Board& oBoard )
     {
         if ( !GetWindow() )
         {
@@ -69,9 +71,13 @@ namespace FromHeLL
         else
         {
             NormalizedDeviceCoordinate() ;
-            std::cout <<"("<< m_fxPos << " " << m_fyPos <<")"<< std::endl;
+            std::cout <<" NDC :("<< m_fxPos << " " << m_fyPos <<")"<< std::endl;
+            int iCol= static_cast<int>( std::floor(  (m_fxPos + 1.0f)*3.0/2.0f  ) );
+            int iRow = static_cast<int>( std::floor(  -(m_fyPos - 1.0f)*3.0/2.0f  ) );
+            std::cout <<"Grid :("<< iRow << " " << iCol <<")"<< std::endl;
+            oBoard.PlaceMark( iRow, iCol, 'X');
         }
-
+        
         
         RenderBoard();
         setMouseClickedState( false );
@@ -86,12 +92,15 @@ namespace FromHeLL
     {
         m_fxPos = 0.0;
         m_fyPos = 0.0;
+        m_iRow = 0;
+        m_iCol = 0;
     }
 
     void Renderer::NormalizedDeviceCoordinate() 
     {
         m_fxPos = -1.0f  + 2.0f*getXCursorPos()/(float)m_iWidth;
         m_fyPos =  1.0f  - 2.0f*getYCursorPos()/(float)m_iHeight;
+        
     }
     void Renderer::RenderBoard()
     {

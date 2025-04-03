@@ -33,4 +33,6 @@ namespace FromHeLL
 
     typedef std::string String;
     #define LOG(M, ...) printf(M "\n", ##__VA_ARGS__)
+
+      
 }

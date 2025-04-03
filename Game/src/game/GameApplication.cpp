@@ -35,8 +35,6 @@ namespace FromHeLL
             InputHandler();
             
             oRenderer.RenderGame( oBoard );
-            
-
             glfwSwapBuffers( pWindow );
             glfwPollEvents();
             

@@ -19,6 +19,8 @@ namespace FromHeLL
         int m_iHeight;
         float m_fxPos;
         float m_fyPos;
+        int m_iRow;
+        int m_iCol;
         GLFWwindow* m_pWindow;
 
         static float m_fXCursorPos;
@@ -43,6 +45,7 @@ namespace FromHeLL
         static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
         inline void ResetNDCoordinate();
         glm::vec2 GetCellPosition( int row, int col);
+
     public:
         Renderer() = delete;
         explicit Renderer( const String& sPath );
