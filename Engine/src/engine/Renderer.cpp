@@ -16,6 +16,8 @@ namespace FromHeLL
     , m_uiVAO(0)
     , m_iWidth(0)
     , m_iHeight(0)
+    , m_fxPos(0.0f)
+    , m_fyPos(0.0f)
     {
         //std::unique_ptr<Shader> o =  std::make_unique<Shader>(sPath); only on c14
         setupGrid();
@@ -62,16 +64,35 @@ namespace FromHeLL
         {
             setXCursorPos(0.0f);
             setYCursorPos(0.0f);
+            ResetNDCoordinate();
         }
         else
         {
-            std::cout << getXCursorPos() << " " << getXCursorPos() << std::endl;
+            NormalizedDeviceCoordinate() ;
+            std::cout <<"("<< m_fxPos << " " << m_fyPos <<")"<< std::endl;
         }
-        setMouseClickedState( false );
+
+        
         RenderBoard();
+        setMouseClickedState( false );
     }
 
-    
+    glm::vec2 Renderer::GetCellPosition( int row, int col )
+    {
+        return glm::vec2(0,0);
+    }
+
+    void Renderer::ResetNDCoordinate()
+    {
+        m_fxPos = 0.0;
+        m_fyPos = 0.0;
+    }
+
+    void Renderer::NormalizedDeviceCoordinate() 
+    {
+        m_fxPos = -1.0f  + 2.0f*getXCursorPos()/(float)m_iWidth;
+        m_fyPos =  1.0f  - 2.0f*getYCursorPos()/(float)m_iHeight;
+    }
     void Renderer::RenderBoard()
     {
         

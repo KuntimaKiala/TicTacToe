@@ -18,11 +18,15 @@ namespace FromHeLL
     {
         
         Renderer oRenderer( GetResourceDir() );
-        Board oBoard;
+
         weak<WindowManager> pWindowManager = GetWindowManager();
         oRenderer.SetWindowSize( pWindowManager.lock()->GetWindowWidth(), pWindowManager.lock()->GetWindowHeight() );
+
         GLFWwindow* pWindow = pWindowManager.lock()->GetWindow();
         oRenderer.SetWindow( pWindow );
+
+        Board oBoard;
+        
         while (!glfwWindowShouldClose( pWindow ))
         {
             glClearColor(0.f, 0.f, 0.f, 1.0f);
