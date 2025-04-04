@@ -34,5 +34,7 @@ namespace FromHeLL
     typedef std::string String;
     #define LOG(M, ...) printf(M "\n", ##__VA_ARGS__)
 
+    const float M_PI = 3.1415926535f;
+
       
 }

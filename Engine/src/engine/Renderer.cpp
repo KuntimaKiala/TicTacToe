@@ -74,7 +74,7 @@ namespace FromHeLL
             int iCol= static_cast<int>( std::floor(  (m_fxPos + 1.0f)*3.0/2.0f  ) );
             int iRow = static_cast<int>( std::floor(  -(m_fyPos - 1.0f)*3.0/2.0f  ) );
             std::cout <<"Grid :("<< iRow << " " << iCol <<")"<< std::endl;
-            oBoard.PlaceMark( iRow, iCol, 'X');
+            oBoard.PlaceMark( iRow, iCol, 'O');
             oBoard.printBoard();
             
         }
@@ -101,9 +101,10 @@ namespace FromHeLL
                         glm::vec2 vPos = GetCellPosition( row, col );
                         RenderX(vPos.x, vPos.y);
                     }
-                    if ( grid[row][col] == 'O')
+                    else if ( grid[row][col] == 'O')
                     {
-                        continue;
+                        glm::vec2 vPos = GetCellPosition( row, col );
+                        RenderO(vPos.x, vPos.y);
                     }
                 }
                 
@@ -143,6 +144,35 @@ namespace FromHeLL
     
     void Renderer::RenderO(float x, float y)
     {
+       
+        constexpr unsigned int iNbSegments = 30;
+        constexpr float fDelta    = 0.05f;
+        constexpr float fRadius = 1.0f/3.0f;
+        float OVertices[iNbSegments * 2];
+        
+        for ( size_t i = 0; i < iNbSegments; i++ )
+        {
+            glm::vec2 vCenter(x + fRadius, y - fRadius ) ;
+            double fAngle = 2.0f * M_PI * (float)i /(float)iNbSegments;
+            OVertices[i*2] = vCenter.x + (fRadius  - fDelta )* std::cos( fAngle ); 
+            OVertices[i*2+1] = vCenter.y + (fRadius  - fDelta ) * std::sin( fAngle );
+        }
+
+        GLuint VAO, VBO ;
+        glCreateVertexArrays(1, &VAO);
+        glCreateBuffers(1,&VBO);
+
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(OVertices), OVertices, GL_STATIC_DRAW);
+        glVertexAttribPointer(0,2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void *)0 );
+        glEnableVertexAttribArray(0);  
+
+        m_pShader->Use();
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_LINE_LOOP, 0, iNbSegments );
+
     }
     
     void Renderer::RenderX(float x, float y)
@@ -215,14 +245,12 @@ namespace FromHeLL
     {
         GLFWwindow* pWindow = GetWindow();
         
-        if( glfwGetKey( pWindow, GLFW_KEY_SPACE) == GLFW_PRESS )
+        if( glfwGetKey( pWindow, GLFW_KEY_SPACE ) == GLFW_PRESS )
         {
             oBoard.Reset();
         }
 
-    }
-
-    Renderer::~Renderer()
+    }    Renderer::~Renderer()
     {
        
     }
