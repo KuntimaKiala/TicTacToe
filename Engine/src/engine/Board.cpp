@@ -4,18 +4,51 @@ namespace FromHeLL
 {
     Board::Board()
     {
-        board = new char*[3];
+        m_cBoard = new char*[3];
         Reset();
     }
 
+    bool Board::Winner() 
+    {
+
+        //CHECK DIAGONAL
+        if ( m_cBoard[0][0] == m_cBoard[1][1] &&  m_cBoard[1][1] == m_cBoard[2][2] &&  m_cBoard[2][2] != '-')
+        {
+                return true;
+        }
+        else if ( m_cBoard[2][0] == m_cBoard[1][1] &&  m_cBoard[1][1] == m_cBoard[0][2]  &&  m_cBoard[0][2] != '-')
+        {
+                return true;
+        }
+        
+        for (size_t i = 0; i < 3; i++)
+        {
+            //Check Rows
+            if ( m_cBoard[i][0] == m_cBoard[i][1] &&  m_cBoard[i][1] == m_cBoard[i][2] &&  m_cBoard[i][2] != '-' )
+            {
+                return true;
+            }
+
+            //Check Col
+            else if ( m_cBoard[0][i] == m_cBoard[1][i] &&  m_cBoard[1][i] == m_cBoard[2][i]  &&  m_cBoard[2][i] != '-')
+            {
+                return true;
+            }
+
+            
+        }
+        
+        return false;
+
+    }
     void Board::Reset()
     {
         for (int i = 0; i < 3; i++)
         {
-            board[i] = new char[3] ;
+            m_cBoard[i] = new char[3] ;
             for (int j = 0; j < 3; j++)
             {
-                board[i][j] = '-';
+                m_cBoard[i][j] = '-';
             }
             
         }
@@ -24,9 +57,9 @@ namespace FromHeLL
 
     bool Board::PlaceMark(int iRow, int iColumn, char cMark /*='-'*/)
     {
-        if( board[iRow][iColumn] == '-' )
+        if( m_cBoard[iRow][iColumn] == '-' )
         {
-           board[iRow][iColumn] = cMark;
+            m_cBoard[iRow][iColumn] = cMark;
            return true; 
         }
         
@@ -53,8 +86,8 @@ namespace FromHeLL
 
         for (int i = 0; i < 3; i++)
         {
-            delete [] board[i];
+            delete [] m_cBoard[i];
         }
-        delete [] board;
+        delete [] m_cBoard;
     }
 } // namespace FromHeLL

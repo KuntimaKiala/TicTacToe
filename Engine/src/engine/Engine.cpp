@@ -8,6 +8,7 @@ namespace FromHeLL
     
     Engine::Engine(int iWidth, int iHeight, const char* pAppName)
     : m_pWindowManager( new WindowManager(iWidth, iHeight, pAppName) )
+    , m_cPlayer('X')
     {
       
     }
@@ -37,7 +38,7 @@ namespace FromHeLL
         }
         
     }
-    
+
     void Engine::Setup()
     {
 

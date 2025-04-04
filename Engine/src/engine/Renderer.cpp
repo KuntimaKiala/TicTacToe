@@ -20,6 +20,7 @@ namespace FromHeLL
     , m_fyPos(0.0f)
     , m_iRow(0)
     , m_iCol(0)
+    , m_cPlayer('X')
     {
         //std::unique_ptr<Shader> o =  std::make_unique<Shader>(sPath); only on c14
         setupGrid();
@@ -51,7 +52,7 @@ namespace FromHeLL
 
     }
 
-    void Renderer::RenderGame( Board& oBoard )
+    void Renderer::RenderGame( Board& oBoard, char& cPlayer )
     {
         if ( !GetWindow() )
         {
@@ -59,7 +60,7 @@ namespace FromHeLL
             return;
         }
         
-        ResetBoard( oBoard );
+        ResetBoard( oBoard, cPlayer );
         SetMouseCallback( GetWindow() );
         if( !getMouseClickedState() )
         {
@@ -74,7 +75,13 @@ namespace FromHeLL
             int iCol= static_cast<int>( std::floor(  (m_fxPos + 1.0f)*3.0/2.0f  ) );
             int iRow = static_cast<int>( std::floor(  -(m_fyPos - 1.0f)*3.0/2.0f  ) );
             std::cout <<"Grid :("<< iRow << " " << iCol <<")"<< std::endl;
-            oBoard.PlaceMark( iRow, iCol, 'O');
+            oBoard.PlaceMark( iRow, iCol, cPlayer);
+
+            if( cPlayer == 'X' )
+                cPlayer = 'O';
+            else 
+                cPlayer = 'X';
+
             oBoard.printBoard();
             
         }
@@ -241,14 +248,32 @@ namespace FromHeLL
         
     }
 
-    void Renderer::ResetBoard( Board& oBoard )
+    void Renderer::ResetBoard( Board& oBoard, char& cPlayer  )
     {
+
         GLFWwindow* pWindow = GetWindow();
         
         if( glfwGetKey( pWindow, GLFW_KEY_SPACE ) == GLFW_PRESS )
         {
             oBoard.Reset();
+            cPlayer = 'X';
         }
+        else if ( oBoard.Winner() )
+        {
+            
+
+            if (cPlayer == 'X')
+            {
+                cPlayer = 'X';
+            }
+            else if (cPlayer == 'O')
+            {
+
+                cPlayer = 'O';
+            }
+            oBoard.Reset();
+        }
+        
 
     }    Renderer::~Renderer()
     {

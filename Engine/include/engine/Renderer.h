@@ -21,6 +21,7 @@ namespace FromHeLL
         float m_fyPos;
         int m_iRow;
         int m_iCol;
+        char m_cPlayer;
         GLFWwindow* m_pWindow;
 
         static float m_fXCursorPos;
@@ -46,13 +47,13 @@ namespace FromHeLL
         inline void ResetNDCoordinate();
         glm::vec2 GetCellPosition( int row, int col) const;
         void RenderXandOs( const Board& oBoard) ;
-        void ResetBoard( Board& oBoard );
+        void ResetBoard( Board& oBoard, char& cPlayer  );
 
     public:
         Renderer() = delete;
         explicit Renderer( const String& sPath );
         void SetWindowSize( int iWidth, int iHeight ) ;
-        void RenderGame( Board& board ) ;
+        void RenderGame( Board& board,  char& cPlayer) ;
         
         
         inline void SetWindow( GLFWwindow* pWindow) { m_pWindow = pWindow ;}

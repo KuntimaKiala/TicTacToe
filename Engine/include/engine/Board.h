@@ -7,14 +7,15 @@ namespace FromHeLL
     
     class Board
     {   private :
-            char** board;
+            char** m_cBoard;
             
         public :
             Board();
             bool PlaceMark(int iRow, int iColumn, char cMark='-');
-            inline  char const* const* getBoard()  const { return board;};
+            inline  char const* const* getBoard()  const { return m_cBoard;};
             void printBoard();
             void Reset();
+            bool Winner() ;
             ~Board();
 
     };

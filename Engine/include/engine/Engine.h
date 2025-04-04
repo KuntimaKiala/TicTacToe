@@ -7,7 +7,11 @@ namespace FromHeLL
     class Engine
     {
     private:
-    shared<WindowManager>  m_pWindowManager;
+        shared<WindowManager>  m_pWindowManager;
+        
+    protected :
+        char m_cPlayer;
+        
     public:
         Engine(int iWidth, int iHeight, const char* pAppName);
         void Setup();
