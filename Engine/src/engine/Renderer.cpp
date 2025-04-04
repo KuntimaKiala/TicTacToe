@@ -71,7 +71,7 @@ namespace FromHeLL
         else
         {
             NormalizedDeviceCoordinate() ;
-            std::cout <<" NDC :("<< m_fxPos << " " << m_fyPos <<")"<< std::endl;
+            std::cout <<"NDC :("<< m_fxPos << " " << m_fyPos <<")"<< std::endl;
             int iCol= static_cast<int>( std::floor(  (m_fxPos + 1.0f)*3.0/2.0f  ) );
             int iRow = static_cast<int>( std::floor(  -(m_fyPos - 1.0f)*3.0/2.0f  ) );
             std::cout <<"Grid :("<< iRow << " " << iCol <<")"<< std::endl;
@@ -265,11 +265,13 @@ namespace FromHeLL
             if (cPlayer == 'X')
             {
                 cPlayer = 'X';
+                std::cout <<  "O Won" << std::endl;
             }
             else if (cPlayer == 'O')
             {
 
                 cPlayer = 'O';
+                std::cout <<  "X Won" << std::endl;
             }
             oBoard.Reset();
         }
