@@ -29,7 +29,7 @@ namespace FromHeLL
     void Renderer::setupGrid() 
     {
 
-        float Vertices[16] = {
+        float BoardVertices[16] = {
             // Vertical lines
             -0.33f,  1.0f,   -0.33f, -1.0f, 
              0.33f,  1.0f,    0.33f, -1.0f,  
@@ -45,7 +45,7 @@ namespace FromHeLL
         glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
 
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(BoardVertices), BoardVertices, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
@@ -59,8 +59,7 @@ namespace FromHeLL
             return;
         }
         
-        //board.PlaceMark(1,1, 'O');
-        //board.printBoard();
+        ResetBoard( oBoard );
         SetMouseCallback( GetWindow() );
         if( !getMouseClickedState() )
         {
@@ -85,7 +84,7 @@ namespace FromHeLL
         setMouseClickedState( false );
     }
 
-    void Renderer::RenderXandOs( Board& oBoard ) 
+    void Renderer::RenderXandOs( const Board& oBoard ) 
     {
 
             const auto& grid = oBoard.getBoard();
@@ -101,10 +100,8 @@ namespace FromHeLL
                     {
                         glm::vec2 vPos = GetCellPosition( row, col );
                         RenderX(vPos.x, vPos.y);
-                        
-                        //oBoard.Reset();
                     }
-                    if ( grid[row][col] == '0')
+                    if ( grid[row][col] == 'O')
                     {
                         continue;
                     }
@@ -153,9 +150,10 @@ namespace FromHeLL
         //std::cout <<"reNDC :("<< x << " " << y <<")"<< std::endl;
         //std::cout << "\n" <<std::endl;
 
-        constexpr float fDelta    = 0.1f;
+        constexpr float fDelta    = 0.05f;
         constexpr float fCellSize = 2.0f/3.0f;
-        float vertices[] = { 
+
+        float XVertices[]= { 
                                 x + fDelta, y - fDelta, 
                                 x + fCellSize -fDelta, y - fCellSize + fDelta,
                                 x + fCellSize -fDelta, y - fDelta,
@@ -168,13 +166,13 @@ namespace FromHeLL
         glCreateBuffers(1, &VBO);
         glBindVertexArray(VAO);
         glBindBuffer( GL_ARRAY_BUFFER, VBO);
-        glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+        glBufferData( GL_ARRAY_BUFFER, sizeof(XVertices), XVertices, GL_STATIC_DRAW );
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE,2*sizeof(float) , (void*)0);
         glEnableVertexAttribArray(0);  
         
         m_pShader->Use();
         glBindVertexArray(VAO);
-        glDrawArrays(GL_LINES, 0, 8); // there are 8 vertices in 
+        glDrawArrays(GL_LINES, 0, 4); // there are 4 vertices in 
         
     }
     
@@ -213,6 +211,16 @@ namespace FromHeLL
         
     }
 
+    void Renderer::ResetBoard( Board& oBoard )
+    {
+        GLFWwindow* pWindow = GetWindow();
+        
+        if( glfwGetKey( pWindow, GLFW_KEY_SPACE) == GLFW_PRESS )
+        {
+            oBoard.Reset();
+        }
+
+    }
 
     Renderer::~Renderer()
     {

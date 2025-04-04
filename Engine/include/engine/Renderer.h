@@ -45,7 +45,8 @@ namespace FromHeLL
         static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
         inline void ResetNDCoordinate();
         glm::vec2 GetCellPosition( int row, int col) const;
-        void RenderXandOs( Board& oBoard) ;
+        void RenderXandOs( const Board& oBoard) ;
+        void ResetBoard( Board& oBoard );
 
     public:
         Renderer() = delete;
