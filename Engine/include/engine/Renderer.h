@@ -44,7 +44,8 @@ namespace FromHeLL
         void NormalizedDeviceCoordinate() ;
         static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
         inline void ResetNDCoordinate();
-        glm::vec2 GetCellPosition( int row, int col);
+        glm::vec2 GetCellPosition( int row, int col) const;
+        void RenderXandOs( Board& oBoard) ;
 
     public:
         Renderer() = delete;

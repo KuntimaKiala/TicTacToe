@@ -45,7 +45,7 @@ namespace FromHeLL
         glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
 
 
-        glBufferData(GL_ARRAY_BUFFER,sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
@@ -76,16 +76,49 @@ namespace FromHeLL
             int iRow = static_cast<int>( std::floor(  -(m_fyPos - 1.0f)*3.0/2.0f  ) );
             std::cout <<"Grid :("<< iRow << " " << iCol <<")"<< std::endl;
             oBoard.PlaceMark( iRow, iCol, 'X');
+            oBoard.printBoard();
+            
         }
         
-        
+        RenderXandOs( oBoard );
         RenderBoard();
         setMouseClickedState( false );
     }
 
-    glm::vec2 Renderer::GetCellPosition( int row, int col )
+    void Renderer::RenderXandOs( Board& oBoard ) 
     {
-        return glm::vec2(0,0);
+
+            const auto& grid = oBoard.getBoard();
+            for (size_t row = 0; row < 3; row++)
+            {
+                for (size_t col = 0; col < 3; col++)
+                {   
+                    if ( grid[row][col] == '-')
+                    {
+                        continue;
+                    }
+                    else if ( grid[row][col] == 'X')
+                    {
+                        glm::vec2 vPos = GetCellPosition( row, col );
+                        RenderX(vPos.x, vPos.y);
+                        
+                        //oBoard.Reset();
+                    }
+                    if ( grid[row][col] == '0')
+                    {
+                        continue;
+                    }
+                }
+                
+            }
+            
+    }
+    glm::vec2 Renderer::GetCellPosition( int row, int col ) const
+    {
+        float ratio = 2.0f/3.0f;
+        float x = -1.0f + static_cast<float>(col) * ratio;
+        float y =  1.0f - static_cast<float>(row) * ratio;
+        return glm::vec2(x,y);
     }
 
     void Renderer::ResetNDCoordinate()
@@ -117,6 +150,32 @@ namespace FromHeLL
     
     void Renderer::RenderX(float x, float y)
     {
+        //std::cout <<"reNDC :("<< x << " " << y <<")"<< std::endl;
+        //std::cout << "\n" <<std::endl;
+
+        constexpr float fDelta    = 0.1f;
+        constexpr float fCellSize = 2.0f/3.0f;
+        float vertices[] = { 
+                                x + fDelta, y - fDelta, 
+                                x + fCellSize -fDelta, y - fCellSize + fDelta,
+                                x + fCellSize -fDelta, y - fDelta,
+                                x + fDelta, y - fCellSize + fDelta,
+                           };
+
+
+        GLuint VAO, VBO;
+        glCreateVertexArrays(1, &VAO);
+        glCreateBuffers(1, &VBO);
+        glBindVertexArray(VAO);
+        glBindBuffer( GL_ARRAY_BUFFER, VBO);
+        glBufferData( GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW );
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE,2*sizeof(float) , (void*)0);
+        glEnableVertexAttribArray(0);  
+        
+        m_pShader->Use();
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_LINES, 0, 8); // there are 8 vertices in 
+        
     }
     
     void Renderer::SetWindowSize(int iWidth, int iHeight)
