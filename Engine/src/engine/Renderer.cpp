@@ -261,19 +261,50 @@ namespace FromHeLL
         else if ( oBoard.Winner() )
         {
             
+            // TODO : Flash Winning Move Before resetting
+            
 
             if (cPlayer == 'X')
             {
+                /*float fTimeValue = 0.0f;
+                std::vector<FromHeLL::Cell> vCells = oBoard.WinningMove();
+                oBoard.CleanBoard();
+                oBoard.printBoard();
+                for (const FromHeLL::Cell& oCell : vCells)
+                {
+                        std::cout << oCell.m_iRow << oCell.m_iCol << std::endl;
+                        glm::vec2 vPos = GetCellPosition( oCell.m_iRow, oCell.m_iCol );
+                        RenderO(vPos.x, vPos.y);    
+                        
+                }
+                
+                std::cout << "time :"<<fTimeValue << std::endl;
+                
+                m_pShader->Use();
+                while (fTimeValue > 20)
+                {
+                    int i = ((int)fTimeValue)%3 ;
+                    std::cout << i << std::endl;
+                    fTimeValue = glfwGetTime();
+                    if ( i == 0  )
+                    {
+                        m_pShader->Use();
+                    }
+                    
+
+                }
+                */
                 cPlayer = 'X';
                 std::cout <<  "O Won" << std::endl;
             }
             else if (cPlayer == 'O')
             {
-
+                oBoard.CleanBoard();
                 cPlayer = 'O';
                 std::cout <<  "X Won" << std::endl;
             }
-            oBoard.Reset();
+            //oBoard.Reset();
+            
         }
         
 
